@@ -1,6 +1,30 @@
-<script setup>
-import { RouterLink, RouterView } from 'vue-router'
+<script>
+import { RouterLink, RouterView } from 'vue-router';
 import Searchbar from './components/Searchbar.vue';
+import axios from 'axios';
+
+
+const key = import.meta.env.VITE_ACCESS_KEY;
+const randomPhotoUrl = `https://api.unsplash.com/photos/random?client_id=${key}`
+const random = 'https://api.unsplash.com/photos/random'
+
+export default {
+  components: {
+    Searchbar
+  },
+  methods: {
+    async getRandom() {
+      console.log("got here", key);
+      try {
+        console.log("working");
+        const response = await axios.get(randomPhotoUrl);
+        console.log(response);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  }
+}
 
 </script>
 
@@ -11,7 +35,7 @@ import Searchbar from './components/Searchbar.vue';
     </nav>
     <div class="content-container">
       <div class="searchbar">
-        <Searchbar />
+        <Searchbar @random="getRandom"/>
       </div>
       <div class="content">
         <RouterView />
@@ -20,6 +44,7 @@ import Searchbar from './components/Searchbar.vue';
   </div>
   
 </template>
+
 
 <style scoped>
 .container {
