@@ -2,7 +2,7 @@
 
 <template>
   <div>
-    <input type="text" placeholder="Search for pics..." />
+    <input type="text" placeholder="Search for pics..." v-model="query" />
     <button @click.prevent="emitSearch">Search</button>
   </div>
   
@@ -12,14 +12,22 @@
 
 <script>
   export default {
+    data () {
+      return {
+        query: ""
+      }
+    },
     methods: {
+      resetSearchField() {
+        this.query = "";
+      },
       emitRandom() {
         console.log('clicked');
         this.$emit('random');
       },
-      emitSearch(query) {
-        console.log('searched');
-        this.$emit('search', 'sunset');
+      emitSearch() {
+        console.log(`searched with ${this.query}`);
+        this.$emit('search', this.query);
       },
       emitFeed() {
         console.log('feeded');
