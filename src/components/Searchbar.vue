@@ -1,8 +1,13 @@
 
 
 <template>
-  <input type="text" placeholder="Search for pics..." />
-  <button @click.prevent="emitRandom">Random</button>
+  <div>
+    <input type="text" placeholder="Search for pics..." />
+    <button @click.prevent="emitSearch">Search</button>
+  </div>
+  
+  <button class="randomButton" @click.prevent="emitRandom">Random</button>
+  <button class="randomButton" @click.prevent="emitFeed">Feed</button>
 </template>
 
 <script>
@@ -11,6 +16,14 @@
       emitRandom() {
         console.log('clicked');
         this.$emit('random');
+      },
+      emitSearch(query) {
+        console.log('searched');
+        this.$emit('search', 'sunset');
+      },
+      emitFeed() {
+        console.log('feeded');
+        this.$emit('feed');
       }
     }
   }

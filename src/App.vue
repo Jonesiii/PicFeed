@@ -5,8 +5,8 @@ import axios from 'axios';
 
 
 const key = import.meta.env.VITE_ACCESS_KEY;
-const randomPhotoUrl = `https://api.unsplash.com/photos/random?client_id=${key}`
-const random = 'https://api.unsplash.com/photos/random'
+const randomPhotoUrl = `https://api.unsplash.com/photos/random?client_id=${key}`;
+const PhotoUrl = `https://api.unsplash.com/photos?client_id=${key}`;
 
 export default {
   components: {
@@ -14,15 +14,30 @@ export default {
   },
   methods: {
     async getRandom() {
-      console.log("got here", key);
       try {
-        console.log("working");
         const response = await axios.get(randomPhotoUrl);
         console.log(response);
       } catch (error) {
         console.log(error);
       }
-    }
+    },
+    async getSearchResults(searchTerms) {
+      try {
+        const searchPhotoUrl = `https://api.unsplash.com/search/photos?query=${searchTerms}&client_id=${key}`;
+        const response = await axios.get(searchPhotoUrl);
+        console.log(response);
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async getPhotoFeed() {
+      try {
+        const response = await axios.get(PhotoUrl);
+        console.log(response);
+      } catch (error) {
+        console.log(error);
+      }
+    },
   }
 }
 
@@ -35,7 +50,7 @@ export default {
     </nav>
     <div class="content-container">
       <div class="searchbar">
-        <Searchbar @random="getRandom"/>
+        <Searchbar @random="getRandom" @search="getSearchResults" @feed="getPhotoFeed"/>
       </div>
       <div class="content">
         <RouterView />
