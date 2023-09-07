@@ -28,6 +28,7 @@
       emitSearch() {
         console.log(`searched with ${this.query}`);
         this.$emit('search', this.query);
+        this.resetSearchField();
       },
       emitFeed() {
         console.log('feeded');
