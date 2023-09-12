@@ -7,7 +7,6 @@ import Gallery from './components/Gallery.vue';
 
 const key = import.meta.env.VITE_ACCESS_KEY;
 const randomPhotoUrl = `https://api.unsplash.com/photos/random?client_id=${key}`;
-const PhotoUrl = `https://api.unsplash.com/photos?client_id=${key}`;
 
 export default {
   components: {
