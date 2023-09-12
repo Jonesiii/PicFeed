@@ -7,7 +7,6 @@
   </div>
   
   <button class="randomButton" @click.prevent="emitRandom">Random</button>
-  <button class="randomButton" @click.prevent="emitFeed">Feed</button>
 </template>
 
 <script>
@@ -30,10 +29,7 @@
         this.$emit('search', this.query);
         this.resetSearchField();
       },
-      emitFeed() {
-        console.log('feeded');
-        this.$emit('feed');
-      }
+
     }
   }
 </script>
