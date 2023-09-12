@@ -2,6 +2,7 @@
 import { RouterLink, RouterView } from 'vue-router';
 import Searchbar from './components/Searchbar.vue';
 import axios from 'axios';
+import Gallery from './components/Gallery.vue';
 
 
 const key = import.meta.env.VITE_ACCESS_KEY;
@@ -10,7 +11,8 @@ const PhotoUrl = `https://api.unsplash.com/photos?client_id=${key}`;
 
 export default {
   components: {
-    Searchbar
+    Searchbar,
+    Gallery
   },
   methods: {
     async getRandom() {
@@ -30,14 +32,6 @@ export default {
         console.log(error);
       }
     },
-    async getPhotoFeed() {
-      try {
-        const response = await axios.get(PhotoUrl);
-        console.log(response);
-      } catch (error) {
-        console.log(error);
-      }
-    },
   }
 }
 
@@ -46,11 +40,16 @@ export default {
 <template>
   <div class="container">
     <nav class="navigation">
-      <RouterLink to="/">Home</RouterLink>
+      <div>
+        <RouterLink to="/">Home</RouterLink> <!-- HOME VIEW -->
+      </div>
+      <div>
+        <RouterLink to="/feed">PicFeed</RouterLink> <!-- Gallery view -->
+      </div>
     </nav>
     <div class="content-container">
       <div class="searchbar">
-        <Searchbar @random="getRandom" @search="getSearchResults" @feed="getPhotoFeed"/>
+        <Searchbar @random="getRandom" @search="getSearchResults"/>
       </div>
       <div class="content">
         <RouterView />
