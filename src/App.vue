@@ -79,12 +79,10 @@ export default {
   flex: 1;
 }
 .content {
-  flex-basis: 90%;
+  flex: 1;
   background-color: #1c1b17;
   color: aquamarine;
-  padding: 20px;
-  box-sizing: border-box;
-  margin: auto;
+  padding: 25px;
 }
 
 .searchbar {
