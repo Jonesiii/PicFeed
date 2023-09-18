@@ -8,7 +8,6 @@
         cols="4"
       >
         <v-hover v-slot="{ isHovering, props }" >
-          <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
             <v-img
             :src="link"
             :elevation="isHovering ? 12 : 2"
@@ -19,7 +18,9 @@
               cover
             >
               <span v-if="isHovering" class="enlargement-icon">
-                <i class="material-symbols-outlined">expand_content</i>
+                <Maximize2 
+                  :size="100"
+                />
               </span>
               <template v-slot:placeholder>
                 <v-row
@@ -51,6 +52,7 @@
 
 <script setup>
 import { ref } from 'vue';
+import { Maximize2 } from 'lucide-vue-next'
 
 const { links } = defineProps(['links']);
 console.log(links);
@@ -104,10 +106,5 @@ const closeEnlargedPhoto = () => {
     width: 100%;
     height: 100%;
   }
-
-  .material-symbols-outlined {
-    font-size: 100px; 
-  }
-
 </style>
 

@@ -1,7 +1,7 @@
 <template>
   <div class="search-box">
     <button class="btn-search" @click="emitSearch">
-      <Search 
+      <Search class="search-icon"
         color="black"
       />
     </button>
@@ -85,5 +85,9 @@ const emitSearch = () => {
   background-color: transparent;
   border-bottom:1px solid rgba(255,255,255,.5);
   transition: all 500ms cubic-bezier(0, 0.110, 0.35, 2);
+}
+
+.search-icon {
+  transform: translateY(3px);
 }
 </style>

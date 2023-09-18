@@ -11,6 +11,7 @@ const randomPhotoUrl = `https://api.unsplash.com/photos/random?client_id=${key}`
 const photoUrl = `https://api.unsplash.com/photos?client_id=${key}`;
 
 const isSearching = ref(false);
+const onRandomPage = ref(false);
 const searchResults = ref([]);
 const feedLinks =ref([]);
 
@@ -60,6 +61,10 @@ onMounted(()=> {
 const stopSearching = () => {
   isSearching.value = false;
 };
+
+/* const stopRandom = () => {
+  onRandomPage.value = false;
+}; */
 </script>
 
 
@@ -67,7 +72,7 @@ const stopSearching = () => {
   <div class="container">
     <div class="content-container">
       <div class="searchbar-and-nav">
-        <FeedButton @search="getSearchResults"/>
+        <FeedButton @getFeed="getPhotoFeed"/>
         <Searchbar @search="getSearchResults"/>
         <RandomButton @random="getRandom" />
       </div>

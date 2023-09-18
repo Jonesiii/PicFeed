@@ -5,11 +5,11 @@
 <script setup>
 import { defineEmits } from 'vue';
 
-const emits = defineEmits(['random']);
+const emits = defineEmits(['getFeed']);
 
 const emitFeed = () => {
   console.log('clicked');
-  emits('random');
+  emits('getFeed');
 };
 
 </script>
