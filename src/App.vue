@@ -1,61 +1,78 @@
-<script>
-import { RouterLink, RouterView } from 'vue-router';
-import Searchbar from './components/Searchbar.vue';
+<script setup>
+import { ref, onMounted } from 'vue';
 import axios from 'axios';
+import Searchbar from './components/Searchbar.vue';
 import Gallery from './components/Gallery.vue';
-
 
 const key = import.meta.env.VITE_ACCESS_KEY;
 const randomPhotoUrl = `https://api.unsplash.com/photos/random?client_id=${key}`;
+const photoUrl = `https://api.unsplash.com/photos?client_id=${key}`;
 
-export default {
-  components: {
-    Searchbar,
-    Gallery
-  },
-  methods: {
-    async getRandom() {
-      try {
-        const response = await axios.get(randomPhotoUrl);
-        console.log(response);
-      } catch (error) {
-        console.log(error);
-      }
-    },
-    async getSearchResults(searchTerms) {
-      try {
-        const searchPhotoUrl = `https://api.unsplash.com/search/photos?query=${searchTerms}&client_id=${key}`;
-        const response = await axios.get(searchPhotoUrl);
-        console.log(response);
-      } catch (error) {
-        console.log(error);
-      }
-    },
+const isSearching = ref(false);
+const searchResults = ref([]);
+const feedLinks =ref([]);
+
+const getRandom = async () => {
+  try {
+    stopSearching();
+    feedLinks.value = [];
+    const response = await axios.get(randomPhotoUrl);
+    console.log(response);
+    feedLinks.value = [response.data.urls.regular];
+  } catch (error) {
+    console.log(error);
   }
-}
+};
 
+const getSearchResults = async (searchTerms) => {
+  try {
+    isSearching.value = true;
+    const searchPhotoUrl = `https://api.unsplash.com/search/photos?query=${searchTerms}&client_id=${key}`;
+    const response = await axios.get(searchPhotoUrl);
+    console.log(response);
+    const data = Object.values(response.data);
+    console.log(data);
+    searchResults.value = data[2].map(item => item.urls.regular);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const getPhotoFeed = async () => {
+  try {
+    stopSearching();
+    console.log("sent feedreq");
+    const response = await axios.get(photoUrl);
+    const data = Object.values(response.data);
+    feedLinks.value = data.map(item => item.urls.regular);
+    console.log(feedLinks.value);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+/* onMounted(()=> {
+  getPhotoFeed();
+}); */
+
+const stopSearching = () => {
+  isSearching.value = false;
+};
 </script>
+
 
 <template>
   <div class="container">
-    <nav class="navigation">
-      <div>
-        <RouterLink to="/">Home</RouterLink> <!-- HOME VIEW -->
-      </div>
-      <div>
-        <RouterLink to="/feed">PicFeed</RouterLink> <!-- Gallery view -->
-      </div>
-    </nav>
     <div class="content-container">
       <div class="searchbar">
         <Searchbar @random="getRandom" @search="getSearchResults"/>
       </div>
       <div class="content">
-        <RouterView />
+        <Gallery v-if="!isSearching && feedLinks.length > 0" :links="feedLinks" />
+        <Gallery v-if="isSearching && searchResults.length > 0" :links="searchResults" />
       </div>
     </div>
   </div>
-  
 </template>
 
 

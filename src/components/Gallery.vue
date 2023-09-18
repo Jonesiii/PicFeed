@@ -39,6 +39,8 @@
                 <v-img
                   :src="selectedImage"
                   @click="closeEnlargedPhoto"
+                  @keyup.esc="closeEnlargedPhoto"
+                  tabindex="0"
                   >
                 </v-img>
             </div>
@@ -49,27 +51,11 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
-import axios from 'axios';
+import { ref } from 'vue';
 
-
-const key = import.meta.env.VITE_ACCESS_KEY;
-const PhotoUrl = `https://api.unsplash.com/photos?client_id=${key}`;
-
-const links = ref([]);
+const { links } = defineProps(['links']);
+console.log(links);
 const selectedImage = ref(null);
-
-const getPhotoFeed = async () => {
-  try {
-    console.log("sent feedreq");
-    const response = await axios.get(PhotoUrl);
-    const data = Object.values(response.data);
-    links.value = data.map(item => item.urls.regular);
-    console.log(links.value);
-  } catch (error) {
-    console.log(error);
-  }
-};
 
 const enlargePhoto = (elem) => {
   console.log("clicked on photo to open");
@@ -81,10 +67,6 @@ const closeEnlargedPhoto = () => {
   selectedImage.value = null;
 }
 
-onMounted(() => {
-  console.log(`the component is now mounted.`);
-  getPhotoFeed();
-});
 </script>
 
 <style scoped>
