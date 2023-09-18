@@ -17,7 +17,6 @@
             v-bind="props"
               aspect-ratio="1"
               cover
-              class="bg-grey-lighten-2"
             >
               <span v-if="isHovering" class="enlargement-icon">
                 <i class="material-symbols-outlined">expand_content</i>

@@ -3,6 +3,8 @@ import { ref, onMounted } from 'vue';
 import axios from 'axios';
 import Searchbar from './components/Searchbar.vue';
 import Gallery from './components/Gallery.vue';
+import RandomButton from './components/RandomButton.vue';
+import FeedButton from './components/FeedButton.vue';
 
 const key = import.meta.env.VITE_ACCESS_KEY;
 const randomPhotoUrl = `https://api.unsplash.com/photos/random?client_id=${key}`;
@@ -51,9 +53,9 @@ const getPhotoFeed = async () => {
   }
 };
 
-/* onMounted(()=> {
+onMounted(()=> {
   getPhotoFeed();
-}); */
+});
 
 const stopSearching = () => {
   isSearching.value = false;
@@ -64,8 +66,10 @@ const stopSearching = () => {
 <template>
   <div class="container">
     <div class="content-container">
-      <div class="searchbar">
-        <Searchbar @random="getRandom" @search="getSearchResults"/>
+      <div class="searchbar-and-nav">
+        <FeedButton @search="getSearchResults"/>
+        <Searchbar @search="getSearchResults"/>
+        <RandomButton @random="getRandom" />
       </div>
       <div class="content">
         <Gallery v-if="!isSearching && feedLinks.length > 0" :links="feedLinks" />
@@ -98,11 +102,30 @@ const stopSearching = () => {
 .content {
   flex: 1;
   background-color: #1c1b17;
-  color: aquamarine;
+  color: white;
   padding: 25px;
 }
 
-.searchbar {
-  margin: auto;
+.searchbar-and-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  }
+
+.searchbar-and-nav > *:first-child {
+  margin-left: auto; 
+  padding: 20px;
+  top:15%;
+  right:3%;
+}
+
+.searchbar-and-nav > *:last-child {
+  margin-right: auto; 
+  padding: 20px;
+  top:15%;
+  left:3%;
+}
+.searchbar-and-nav > *:nth-child(2) {
+  top:15%;
 }
 </style>
