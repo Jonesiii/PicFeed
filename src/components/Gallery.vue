@@ -19,7 +19,9 @@
               cover
               class="bg-grey-lighten-2"
             >
-            <span v-if="isHovering" class="material-symbols-outlined">expand_content</span>
+              <span v-if="isHovering" class="enlargement-icon">
+                <i class="material-symbols-outlined">expand_content</i>
+              </span>
               <template v-slot:placeholder>
                 <v-row
                   class="fill-height ma-0"
@@ -34,11 +36,11 @@
               </template>
             </v-img>
             <div v-if="selectedImage" class="overlay">
-              <v-img
-                :src="selectedImage"
-                @click="closeEnlargedPhoto"
-              >
-              </v-img>
+                <v-img
+                  :src="selectedImage"
+                  @click="closeEnlargedPhoto"
+                  >
+                </v-img>
             </div>
         </v-hover>
       </v-col>
@@ -72,6 +74,7 @@ const getPhotoFeed = async () => {
 const enlargePhoto = (elem) => {
   console.log("clicked on photo to open");
   selectedImage.value = elem;
+  console.log(selectedImage.value);
 }
 const closeEnlargedPhoto = () => {
   console.log("clicked on photo to close");
@@ -99,22 +102,30 @@ onMounted(() => {
   }
 
   .overlay {
-  position: fixed; /* Sit on top of the page content */
-  width: 100%; /* Full width (cover the whole page) */
-  height: 100%; /* Full height (cover the whole page) */
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
-  cursor: pointer; /* Add a pointer on hover */
+    position: fixed; /* Sit on top of the page content */
+    width: 100%; /* Full width (cover the whole page) */
+    height: 100%; /* Full height (cover the whole page) */
+    top: 0; /* these force the photo to only render once for reasons*/
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 2; /* Specify a stack order so that other pictures are not shown in the background */
+    cursor: pointer; 
+    display: flex; /* flexbox to center the pic vertically */
+  }
+
+  .enlargement-icon {
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    position: absolute; 
+    width: 100%;
+    height: 100%;
   }
 
   .material-symbols-outlined {
-    position:auto;
-    width: 100%;
-    height: 100%;
+    font-size: 100px; 
   }
 
 </style>
