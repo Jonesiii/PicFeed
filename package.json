@@ -1,6 +1,7 @@
 {
   "name": "sofia",
-  "version": "0.0.0",
+  "version": "0.1.0",
+  "homepage": "https://jonesiii.github.io/PicFeed/",
   "private": true,
   "scripts": {
     "dev": "vite",
