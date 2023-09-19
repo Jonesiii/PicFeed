@@ -11,7 +11,6 @@ const randomPhotoUrl = `https://api.unsplash.com/photos/random?client_id=${key}`
 const photoUrl = `https://api.unsplash.com/photos?client_id=${key}`;
 
 const isSearching = ref(false);
-const onRandomPage = ref(false);
 const searchResults = ref([]);
 const feedLinks =ref([]);
 
