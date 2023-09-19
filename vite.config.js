@@ -17,5 +17,8 @@ export default defineConfig({
   },
   publicPath: process.env.NODE_ENV === 'production'
       ? '/PicFeed/'
-      : '/'
+      : '/',
+  base: process.env.NODE_ENV === 'production'
+      ? '/PicFeed/'
+      : '/',
 })
