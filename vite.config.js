@@ -16,6 +16,6 @@ export default defineConfig({
     }
   },
   publicPath: process.env.NODE_ENV === 'production'
-      ? '/PicFeed/'
+      ? '/https://jonesiii.github.io/PicFeed//'
       : '/'
 })
