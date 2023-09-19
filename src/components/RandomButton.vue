@@ -11,7 +11,6 @@ const emitRandom = () => {
   console.log('clicked');
   emits('random');
 };
-
 </script>
 
 <style scoped>
