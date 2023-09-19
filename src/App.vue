@@ -43,6 +43,7 @@ const getSearchResults = async (searchTerms) => {
 const getPhotoFeed = async () => {
   try {
     stopSearching();
+    feedLinks.value = [];
     console.log("sent feedreq");
     const response = await axios.get(photoUrl);
     const data = Object.values(response.data);
