@@ -62,9 +62,6 @@ const stopSearching = () => {
   isSearching.value = false;
 };
 
-/* const stopRandom = () => {
-  onRandomPage.value = false;
-}; */
 </script>
 
 
