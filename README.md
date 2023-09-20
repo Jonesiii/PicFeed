@@ -1,14 +1,12 @@
 # PicFeed
 
-This template should help get you started developing with Vue 3 in Vite.
+This is a simple frontend application developed with Vue 3. It fetches photos from unsplash.com's API and displays them in a gallery.
 
-## Recommended IDE Setup
+Show latest button shows the latest pictures uploaded to unsplash.com. The random button fetches a random picture and the searchbar allows the user to search for pictures.
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+A working version of the application can be checked out at [GitHub Pages](https://jonesiii.github.io/PicFeed/).
 
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+The application does not currently work with Safari.
 
 ## Project Setup
 
