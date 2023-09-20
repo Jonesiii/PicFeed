@@ -8,7 +8,6 @@ import { defineEmits } from 'vue';
 const emits = defineEmits(['getFeed']);
 
 const emitFeed = () => {
-  console.log('clicked');
   emits('getFeed');
 };
 

@@ -61,12 +61,9 @@ console.log(links);
 const selectedImage = ref(null);
 
 const enlargePhoto = (elem) => {
-  console.log("clicked on photo to open");
   selectedImage.value = elem;
-  console.log(selectedImage.value);
 }
 const closeEnlargedPhoto = () => {
-  console.log("clicked on photo to close");
   selectedImage.value = null;
 }
 

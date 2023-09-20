@@ -28,9 +28,7 @@ const getRandom = async () => {
     stopSearching();
     feedLinks.value = [];
     const response = await axios.get(randomPhotoUrl);
-    console.log(response);
     const data = Object.values(response.data);
-    console.log(data);
     feedLinks.value = [data[12].regular];
   } catch (error) {
     console.log(error);
@@ -42,9 +40,7 @@ const getSearchResults = async (searchTerms) => {
     isSearching.value = true;
     const searchPhotoUrl = `https://api.unsplash.com/search/photos?query=${searchTerms}&client_id=${key}`;
     const response = await axios.get(searchPhotoUrl);
-    console.log(response);
     const data = Object.values(response.data);
-    console.log(data);
     searchResults.value = data[2].map(item => item.urls.regular);
   } catch (error) {
     console.log(error);
@@ -55,11 +51,9 @@ const getPhotoFeed = async () => {
   try {
     stopSearching();
     feedLinks.value = [];
-    console.log("sent feedreq");
     const response = await axios.get(photoUrl);
     const data = Object.values(response.data);
     feedLinks.value = data.map(item => item.urls.regular);
-    console.log(feedLinks.value);
   } catch (error) {
     console.log(error);
   }

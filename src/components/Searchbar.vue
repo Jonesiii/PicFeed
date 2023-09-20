@@ -25,7 +25,6 @@ const resetSearchField = () => {
 
 
 const emitSearch = () => {
-  console.log(`searched with ${query.value}`);
   emits('search', query.value);
   resetSearchField();
 };

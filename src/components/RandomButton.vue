@@ -8,7 +8,6 @@ import { defineEmits } from 'vue';
 const emits = defineEmits(['search']);
 
 const emitRandom = () => {
-  console.log('clicked');
   emits('random');
 };
 </script>
