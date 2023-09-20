@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, onBeforeUnmount } from 'vue';
 import axios from 'axios';
 import Searchbar from './components/Searchbar.vue';
 import Gallery from './components/Gallery.vue';
@@ -12,7 +12,8 @@ const photoUrl = `https://api.unsplash.com/photos?client_id=${key}`;
 
 const isSearching = ref(false);
 const searchResults = ref([]);
-const feedLinks =ref([]);
+const feedLinks = ref([]);
+const screenWidth = ref(window.innerWidth);
 
 const getRandom = async () => {
   try {
@@ -54,13 +55,23 @@ const getPhotoFeed = async () => {
   }
 };
 
-onMounted(()=> {
-  getPhotoFeed();
-});
-
 const stopSearching = () => {
   isSearching.value = false;
 };
+
+const updateScreenWidth = () => {
+  screenWidth.value = window.innerWidth;
+  console.log(screenWidth.value);
+};
+
+onMounted(()=> {
+  getPhotoFeed();
+  window.addEventListener("resize", updateScreenWidth);
+});
+
+onBeforeUnmount(() => {
+  window.removeEventListener("resize", updateScreenWidth);
+})
 
 </script>
 
@@ -68,10 +79,19 @@ const stopSearching = () => {
 <template>
   <div class="container">
     <div class="content-container">
-      <div class="searchbar-and-nav">
+      <div v-if="screenWidth > 768" class="searchbar-and-nav">
         <FeedButton @getFeed="getPhotoFeed"/>
         <Searchbar @search="getSearchResults"/>
         <RandomButton @random="getRandom" />
+      </div>
+      <div v-else class="searchbar-and-nav-narrow">
+        <div>
+          <Searchbar class="searchbox" @search="getSearchResults"/>
+        </div>
+        <div class="buttons">
+          <FeedButton @getFeed="getPhotoFeed"/>
+          <RandomButton @random="getRandom" />
+        </div>
       </div>
       <div class="content">
         <Gallery v-if="!isSearching && feedLinks.length > 0" :links="feedLinks" />
@@ -129,5 +149,30 @@ const stopSearching = () => {
 }
 .searchbar-and-nav > *:nth-child(2) {
   top:15%;
+}
+
+.searchbar-and-nav-narrow {
+  display: flex;
+  flex-direction: column; /* Stack elements vertically */
+  align-items: center; /* Center horizontally */
+  justify-content: center; /* Center vertically */
+  text-align: center; /* Center text or inline elements */
+}
+
+.buttons {
+  margin-top:3%;
+}
+
+.buttons > *:first-child {
+  padding: 20px;
+  right:20%;
+}
+.buttons > *:last-child {
+  padding: 20px;
+  left:10%;
+}
+
+.searchbox {
+  margin-top:25%;
 }
 </style>
