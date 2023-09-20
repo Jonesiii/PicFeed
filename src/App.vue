@@ -65,7 +65,6 @@ const stopSearching = () => {
 
 const updateScreenWidth = () => {
   screenWidth.value = window.innerWidth;
-  console.log(screenWidth.value);
 };
 
 onMounted(()=> {
