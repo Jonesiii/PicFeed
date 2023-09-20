@@ -38,10 +38,11 @@
             <div v-if="selectedImage" class="overlay">
                 <v-img
                   :src="selectedImage"
-                  @click="closeEnlargedPhoto"
-                  @keyup.esc="closeEnlargedPhoto"
-                  tabindex="0"
                   >
+                  <X class="close-button" @click="closeEnlargedPhoto" @keyup.esc="closeEnlargedPhoto" :tabindex="0"
+                    :size="40"
+                    color="white"
+                  />
                 </v-img>
             </div>
         </v-hover>
@@ -53,6 +54,7 @@
 <script setup>
 import { ref } from 'vue';
 import { Maximize2 } from 'lucide-vue-next'
+import { X } from 'lucide-vue-next'
 
 const { links } = defineProps(['links']);
 console.log(links);
@@ -72,7 +74,6 @@ const closeEnlargedPhoto = () => {
 
 <style scoped>
 
-@import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200");
   .v-img {
     transition: opacity .4s ease-in-out;
   }
@@ -85,18 +86,31 @@ const closeEnlargedPhoto = () => {
   }
 
   .overlay {
-    position: fixed; /* Sit on top of the page content */
-    width: 100%; /* Full width (cover the whole page) */
-    height: 100%; /* Full height (cover the whole page) */
-    top: 0; /* these force the photo to only render once for reasons*/
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 2; /* Specify a stack order so that other pictures are not shown in the background */
-    cursor: pointer; 
-    display: flex; /* flexbox to center the pic vertically */
-  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 1); /* Black background with 90% opacity */
+  z-index: 1000; /* Ensure it's on top of other elements */
+}
+
+.overlay .close-button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  cursor: pointer;
+  font-size: 24px;
+}
+
+.overlay img {
+  max-width: 90%; /* Limit the image width */
+  max-height: 90%; /* Limit the image height */
+  object-fit: contain; /* Maintain image aspect ratio while fitting inside the container */
+}
 
   .enlargement-icon {
     display: flex;

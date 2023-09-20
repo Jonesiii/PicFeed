@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted, onBeforeUnmount } from 'vue';
+import { ref, onMounted, onBeforeUnmount, computed } from 'vue';
 import axios from 'axios';
 import Searchbar from './components/Searchbar.vue';
 import Gallery from './components/Gallery.vue';
@@ -15,13 +15,23 @@ const searchResults = ref([]);
 const feedLinks = ref([]);
 const screenWidth = ref(window.innerWidth);
 
+const displayedLinks = computed(() => {
+  if (isSearching.value) {
+    return searchResults.value;
+  } else {
+    return feedLinks.value;
+  }
+});
+
 const getRandom = async () => {
   try {
     stopSearching();
     feedLinks.value = [];
     const response = await axios.get(randomPhotoUrl);
     console.log(response);
-    feedLinks.value = [response.data.urls.regular];
+    const data = Object.values(response.data);
+    console.log(data);
+    feedLinks.value = [data[12].regular];
   } catch (error) {
     console.log(error);
   }
@@ -94,8 +104,9 @@ onBeforeUnmount(() => {
         </div>
       </div>
       <div class="content">
-        <Gallery v-if="!isSearching && feedLinks.length > 0" :links="feedLinks" />
-        <Gallery v-if="isSearching && searchResults.length > 0" :links="searchResults" />
+        <div class="content">
+        <Gallery :links="displayedLinks" />
+      </div>
       </div>
     </div>
   </div>
